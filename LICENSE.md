@@ -1,5 +1,5 @@
 					Quick Software Distribution License
-					 Version-1.0, Date: 02 January 2021
+					 Version-1.0, Date: 02 February 2021
 					 
  Copyright (C) 2018-2021 MathInDOS Software(s)
  Everyone has permitted to copy, distribute this LICENSE with their OpenSource 
