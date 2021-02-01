@@ -1,9 +1,74 @@
+/*
+	ShapeX v1.0
+	Copyright (C) 2018-2021 MathInDOS
+	
+	What is it?
+	~~~~~~~~~~~
+	ShapeX is a single header only file which enables you to draw shapes with default Windows
+	Operating System dependency, without using other huge files such as (*.dll). It used GDIPlus
+	to draw shapes and GDIPlus already have every Windows PC (Starting from Windows XP to 10)
+	
+	
+	License (QSDL-1)
+	~~~~~~~~~~~~~~~~
+	
+	To know more about LICENSE, take a look of LICENSE.md file.
+	
+	
+	How to Compile? (Windows)
+	~~~~~~~~~~~~~~~~~~~~~~~~~
+	To compile this file along with project you need to type this (DLL) and need to define (UNICODE\)
+	for GCC Compilers
+	
+	g++ <filename.cpp> -o <output.exe> -lgdiplus -municode
+	
+	Ex.
+	g++ example.cpp -o example.exe -lgdiplus -municode
+	
+	IMPORTANT FOR OLD COMPILERS!!
+	
+	If you are using DevC++ or Code::Blocks old version then don't forget to define C++ language standard 
+	to -std=c++17 or -std=c++2a
+	
+	In DevC++
+	---------
+	-std=c++17 -lgdiplus -municode
+	
+	Same process to Code::Blocks
+	
+	MSVC Compilers
+	~~~~~~~~~~~~~~
+	I don't test this version with MSVC Compiler so if you trying to compile this file with MSVC then you should
+	found many types of WARNINGS (or ERRORS). In next version I will add how to compile with MSVC
+	
+	
+	Legacy Mode
+	~~~~~~~~~~~
+	To use this program in Windows 10 you need to first enable Legacy Mode in cmd.
+	Legacy Mode function will add soon!
+	
+	Example
+	~~~~~~~
+	
+	#include <windows.h>
+	#include "ShapeX.h"
+		
+	int wmain(int argc, wchar_t *argv[])   // For unicode support
+	{
+		ShapeX shape;
+		shape.DrawLine(100, 200, 300, 100, 0, 255, 0, 12);  // x1 y1 x2 y2 r g b pen-width = GDIPlus Line!
+		return 0;
+	}
+	
+*/
+
+
 #define WIN32_LEAN_AND_MEAN
 #define Smooth Gdiplus::SmoothingModeHighQuality
 #include <windows.h>
 #include <gdiplus.h>
 
-class shapex
+class ShapeX
 {
 	public:
 	// Draw Line using point to point
@@ -460,6 +525,7 @@ class shapex
 		
 		Gdiplus::SolidBrush brush(Gdiplus::Color(r, g, b));
 		
+		/* Font : Arial */
 		if(!_wcsicmp(ff, L"ari") || !_wcsicmp(ff, L"arial"))
 		{
 			Gdiplus::FontFamily ff(L"Arial", nullptr);
@@ -471,8 +537,99 @@ class shapex
 			}
 			else if(!_wcsicmp(fs, L"italic") || !_wcsicmp(fs, L"ital"))
 			{
-				
+				Gdiplus::Font font(&ff, pw, Gdiplus::FontStyleItalic, Gdiplus::UnitPixel);
+				gf.DrawString(arg, -1, &font, Gdiplus::PointF(x, y), &brush);				
 			}
+			else if(!_wcsicmp(fs, L"bold") || !_wcsicmp(fs, L"bld"))
+			{
+				Gdiplus::Font font(&ff, pw, Gdiplus::FontStyleBold, Gdiplus::UnitPixel);
+				gf.DrawString(arg, -1, &font, Gdiplus::PointF(x, y), &brush);
+			}
+			else if(!_wcsicmp(fs, L"underline") || !_wcsicmp(fs, L"undrline"))
+			{
+				Gdiplus::Font font(&ff, pw, Gdiplus::FontStyleUnderline, Gdiplus::UnitPixel);
+				gf.DrawString(arg, -1, &font, Gdiplus::PointF(x, y), &brush);
+			}
+			else if(!_wcsicmp(fs, L"strikeout") || !_wcsicmp(fs, L"strkout"))
+			{
+				Gdiplus::Font font(&ff, pw, Gdiplus::FontStyleStrikeout, Gdiplus::UnitPixel);
+				gf.DrawString(arg, -1, &font, Gdiplus::PointF(x, y), &brush);
+			}
+			else
+			{}
 		}
+		
+		/* Font : Calibri */
+		else if(!_wcsicmp(ff, L"calibri") || !_wcsicmp(ff, L"calib"))
+		{
+			Gdiplus::FontFamily ff(L"Calibri", nullptr);
+			
+			if(!_wcsicmp(fs, L"regular") || !_wcsicmp(fs, L"regu"))
+			{
+				Gdiplus::Font font(&ff, pw, Gdiplus::FontStyleRegular, Gdiplus::UnitPixel);
+				gf.DrawString(arg, -1, &font, Gdiplus::PointF(x, y), &brush);
+			}
+			else if(!_wcsicmp(fs, L"italic") || !_wcsicmp(fs, L"ital"))
+			{
+				Gdiplus::Font font(&ff, pw, Gdiplus::FontStyleItalic, Gdiplus::UnitPixel);
+				gf.DrawString(arg, -1, &font, Gdiplus::PointF(x, y), &brush);				
+			}
+			else if(!_wcsicmp(fs, L"bold") || !_wcsicmp(fs, L"bld"))
+			{
+				Gdiplus::Font font(&ff, pw, Gdiplus::FontStyleBold, Gdiplus::UnitPixel);
+				gf.DrawString(arg, -1, &font, Gdiplus::PointF(x, y), &brush);
+			}
+			else if(!_wcsicmp(fs, L"underline") || !_wcsicmp(fs, L"undrline"))
+			{
+				Gdiplus::Font font(&ff, pw, Gdiplus::FontStyleUnderline, Gdiplus::UnitPixel);
+				gf.DrawString(arg, -1, &font, Gdiplus::PointF(x, y), &brush);
+			}
+			else if(!_wcsicmp(fs, L"strikeout") || !_wcsicmp(fs, L"strkout"))
+			{
+				Gdiplus::Font font(&ff, pw, Gdiplus::FontStyleStrikeout, Gdiplus::UnitPixel);
+				gf.DrawString(arg, -1, &font, Gdiplus::PointF(x, y), &brush);
+			}
+			else
+			{}
+		}
+			
+		/* Font : Cambria */
+		else if(!_wcsicmp(ff, L"cambria") || !_wcsicmp(ff, L"camb"))
+		{
+			Gdiplus::FontFamily ff(L"Cambria", nullptr);
+			
+			if(!_wcsicmp(fs, L"regular") || !_wcsicmp(fs, L"regu"))
+			{
+				Gdiplus::Font font(&ff, pw, Gdiplus::FontStyleRegular, Gdiplus::UnitPixel);
+				gf.DrawString(arg, -1, &font, Gdiplus::PointF(x, y), &brush);
+			}
+			else if(!_wcsicmp(fs, L"italic") || !_wcsicmp(fs, L"ital"))
+			{
+				Gdiplus::Font font(&ff, pw, Gdiplus::FontStyleItalic, Gdiplus::UnitPixel);
+				gf.DrawString(arg, -1, &font, Gdiplus::PointF(x, y), &brush);				
+			}
+			else if(!_wcsicmp(fs, L"bold") || !_wcsicmp(fs, L"bld"))
+			{
+				Gdiplus::Font font(&ff, pw, Gdiplus::FontStyleBold, Gdiplus::UnitPixel);
+				gf.DrawString(arg, -1, &font, Gdiplus::PointF(x, y), &brush);
+			}
+			else if(!_wcsicmp(fs, L"underline") || !_wcsicmp(fs, L"undrline"))
+			{
+				Gdiplus::Font font(&ff, pw, Gdiplus::FontStyleUnderline, Gdiplus::UnitPixel);
+				gf.DrawString(arg, -1, &font, Gdiplus::PointF(x, y), &brush);
+			}
+			else if(!_wcsicmp(fs, L"strikeout") || !_wcsicmp(fs, L"strkout"))
+			{
+				Gdiplus::Font font(&ff, pw, Gdiplus::FontStyleStrikeout, Gdiplus::UnitPixel);
+				gf.DrawString(arg, -1, &font, Gdiplus::PointF(x, y), &brush);
+			}
+			else
+			{}
+		}
+		
+		else
+		{}
 	}
+	
 };
+
